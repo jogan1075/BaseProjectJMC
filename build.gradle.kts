@@ -20,14 +20,43 @@ allprojects {
         jcenter()
     }
 }
+val ktlint by configurations.creating
 
 plugins {
     id("io.gitlab.arturbosch.detekt").version("1.9.1")
+
 }
 
 dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.9.1")
+    ktlint("com.pinterest:ktlint:0.37.2")
 }
+
+
+val outputDir = "${project.buildDir}/reports/ktlint/"
+val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
+
+val ktlintCheck by tasks.creating(JavaExec::class) {
+    inputs.files(inputFiles)
+    outputs.dir(outputDir)
+
+    description = "Check Kotlin code style."
+    classpath = ktlint
+    main = "com.pinterest.ktlint.Main"
+    args = listOf("src/**/*.kt")
+}
+
+val ktlintFormat by tasks.creating(JavaExec::class) {
+    inputs.files(inputFiles)
+    outputs.dir(outputDir)
+
+    description = "Fix Kotlin code style deviations."
+    classpath = ktlint
+    main = "com.pinterest.ktlint.Main"
+    args = listOf("-F", "src/**/*.kt")
+}
+
+
 detekt {
     failFast = true // fail build on any finding
     buildUponDefaultConfig = true // preconfigure defaults
@@ -48,6 +77,6 @@ tasks {
     }
 }
 
-//task clean(type: Delete) {
-//    delete rootProject.buildDir
-//}
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
+}
