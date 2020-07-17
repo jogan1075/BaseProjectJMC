@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DesafioFIF.iml" filepath="$PROJECT_DIR$/.idea/modules/DesafioFIF.iml" group="DesafioFIF" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DesafioFIF_buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/DesafioFIF_buildSrc.iml" group="DesafioFIF/DesafioFIF_buildSrc" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="DesafioFIF/app" />
     </modules>
   </component>
